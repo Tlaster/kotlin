@@ -48,6 +48,16 @@ public expect annotation class CName(val externName: String = "", val shortName:
 expect annotation class FreezingIsDeprecated
 
 /**
+ * This annotation marks the experimental [ObjCName] annotation.
+ */
+@RequiresOptIn
+@Target(AnnotationTarget.ANNOTATION_CLASS)
+@Retention(AnnotationRetention.BINARY)
+@MustBeDocumented
+@OptionalExpectation
+public expect annotation class ExperimentalObjCName()
+
+/**
  * Instructs the Kotlin compiler to use a custom Objective-C and/or Swift name for this class, property, parameter, function or file.
  */
 @Target(
@@ -60,4 +70,5 @@ expect annotation class FreezingIsDeprecated
 @Retention(AnnotationRetention.BINARY)
 @MustBeDocumented
 @OptionalExpectation
+@ExperimentalObjCName
 public expect annotation class ObjCName(val name: String = "", val swiftName: String = "")
