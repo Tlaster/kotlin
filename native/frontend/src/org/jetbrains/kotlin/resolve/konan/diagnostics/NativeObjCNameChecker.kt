@@ -15,7 +15,7 @@ import org.jetbrains.kotlin.resolve.checkers.DeclarationChecker
 import org.jetbrains.kotlin.resolve.checkers.DeclarationCheckerContext
 import org.jetbrains.kotlin.resolve.scopes.DescriptorKindFilter
 import org.jetbrains.kotlin.resolve.scopes.MemberScope
-import org.jetbrains.kotlin.utils.addToStdlib.cast
+import org.jetbrains.kotlin.utils.addToStdlib.safeAs
 
 object NativeObjCNameChecker : DeclarationChecker {
     private val objCNameFqName = FqName("kotlin.native.ObjCName")
@@ -97,9 +97,9 @@ object NativeObjCNameChecker : DeclarationChecker {
     private class ObjCName(
         val annotation: AnnotationDescriptor
     ) {
-        val name: String? = annotation.argumentValue("name")?.value?.cast<String>()?.takeIf { it.isNotBlank() }
-        val swiftName: String? = annotation.argumentValue("swiftName")?.value?.cast<String>()?.takeIf { it.isNotBlank() }
-        val exact: Boolean = annotation.argumentValue("exact")?.value?.cast() ?: false
+        val name: String? = annotation.argumentValue("name")?.value?.safeAs<String>()?.takeIf { it.isNotBlank() }
+        val swiftName: String? = annotation.argumentValue("swiftName")?.value?.safeAs<String>()?.takeIf { it.isNotBlank() }
+        val exact: Boolean = annotation.argumentValue("exact")?.value?.safeAs<Boolean>() ?: false
 
         override fun equals(other: Any?): Boolean =
             other is ObjCName && name == other.name && swiftName == other.swiftName && exact == other.exact
