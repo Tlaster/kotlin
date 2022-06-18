@@ -51,6 +51,15 @@ private func testObjCNameObject() throws {
     try assertSame(actual: ObjCNameSwiftObject.shared, expected: ObjCNameSwiftObject())
 }
 
+private func testObjCNameEnum() throws {
+    let enumValues = ObjCNameSwiftEnum.values()
+    try assertEquals(actual: enumValues.size, expected: 3)
+    try assertSame(actual: enumValues.get(index: 0) as AnyObject, expected: ObjCNameSwiftEnum.swiftOne)
+    try assertSame(actual: enumValues.get(index: 1) as AnyObject, expected: ObjCNameSwiftEnum.companion)
+    try assertSame(actual: enumValues.get(index: 2) as AnyObject, expected: ObjCNameSwiftEnum.swiftThree)
+    try assertEquals(actual: ObjCNameSwiftEnum.Companion.shared.foo(), expected: 0)
+}
+
 class ObjCNameTests : SimpleTestProvider {
     override init() {
         super.init()
@@ -64,5 +73,6 @@ class ObjCNameTests : SimpleTestProvider {
         test("TestObjCNameNestedClass", testObjCNameNestedClass)
         test("TestObjCNameExact", testObjCNameExact)
         test("TestObjCNameObject", testObjCNameObject)
+        test("TestObjCNameEnum", testObjCNameEnum)
     }
 }

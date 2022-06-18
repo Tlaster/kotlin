@@ -1235,9 +1235,19 @@ __attribute__((swift_name("ObjCNameSwiftEnum")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 - (instancetype)initWithName:(NSString *)name ordinal:(int32_t)ordinal __attribute__((swift_name("init(name:ordinal:)"))) __attribute__((objc_designated_initializer)) __attribute__((unavailable));
 @property (class, readonly) KtObjCNameObjCEnum *objcOne __attribute__((swift_name("swiftOne")));
-@property (class, readonly) KtObjCNameObjCEnum *objcTwo __attribute__((swift_name("swiftTwo")));
+@property (class, readonly) KtObjCNameObjCEnum *objcTwo __attribute__((swift_name("companion")));
 @property (class, readonly) KtObjCNameObjCEnum *objcThree __attribute__((swift_name("swiftThree")));
 + (KtKotlinArray<KtObjCNameObjCEnum *> *)values __attribute__((swift_name("values()")));
+@end;
+
+__attribute__((objc_subclassing_restricted))
+__attribute__((swift_name("ObjCNameSwiftEnum.Companion")))
+@interface KtObjCNameObjCEnumCompanion : KtBase
++ (instancetype)alloc __attribute__((unavailable));
++ (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
++ (instancetype)companion __attribute__((swift_name("init()")));
+@property (class, readonly, getter=shared) KtObjCNameObjCEnumCompanion *shared __attribute__((swift_name("shared")));
+- (int32_t)foo __attribute__((swift_name("foo()")));
 @end;
 
 __attribute__((objc_subclassing_restricted))

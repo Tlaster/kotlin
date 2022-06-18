@@ -71,8 +71,12 @@ object ObjCNameKotlinObject
 enum class ObjCNameKotlinEnum {
     @ObjCName("objcOne", "swiftOne")
     KOTLIN_ONE,
-    @ObjCName("objcTwo", "swiftTwo")
+    @ObjCName("objcTwo", "companion")
     kotlinTwo,
     @ObjCName("objcThree", "swiftThree")
-    KotlinThree
+    KotlinThree;
+
+    companion object {
+        fun foo(): Int = 0
+    }
 }
