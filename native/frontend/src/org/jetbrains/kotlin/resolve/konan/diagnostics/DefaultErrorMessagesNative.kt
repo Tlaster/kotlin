@@ -53,6 +53,7 @@ private val DIAGNOSTIC_FACTORY_TO_RENDERER by lazy {
         )
         put(ErrorsNative.INAPPLICABLE_EXACT_OBJC_NAME, "Exact @ObjCName is only applicable to classes, objects and interfaces")
         put(ErrorsNative.MISSING_EXACT_OBJC_NAME, "Exact @ObjCName is required to have an ObjC name")
+        put(ErrorsNative.NON_LITERAL_OBJC_NAME_ARG, "@ObjCName accepts only literal string and boolean values")
     }
 }
 

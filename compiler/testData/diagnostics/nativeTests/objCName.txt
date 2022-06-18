@@ -1,10 +1,13 @@
 package
 
+private const val exact: kotlin.Boolean = false
 @kotlin.native.ObjCName(name = "validName", swiftName = "invalid.name") public val invalidCharactersObjCNameA: kotlin.Int = 0
 @kotlin.native.ObjCName(name = "invalid.name", swiftName = "validName") public val invalidCharactersObjCNameB: kotlin.Int = 0
 @kotlin.native.ObjCName(name = "validName1", swiftName = "1validName") public val invalidFirstCharacterObjCNameA: kotlin.Int = 0
 @kotlin.native.ObjCName(name = "1validName", swiftName = "validName1") public val invalidFirstCharacterObjCNameB: kotlin.Int = 0
 @kotlin.native.ObjCName public val invalidObjCName: kotlin.Int = 0
+@kotlin.native.ObjCName(exact = false, name = "nonLiteralArgsObjC", swiftName = "nonLiteralArgsSwift") public val nonLiteralArgs: kotlin.Int = 0
+private const val objcName: kotlin.String = "nonLiteralArgsObjC"
 
 public open class Base {
     public constructor Base()

@@ -164,3 +164,13 @@ interface I {
 open class Derived2 : Derived() {
     override fun foo() {}
 }
+
+private const val exact = false
+private const val objcName = "nonLiteralArgsObjC"
+
+@ObjCName(
+    <!NON_LITERAL_OBJC_NAME_ARG!>objcName<!>,
+    <!NON_LITERAL_OBJC_NAME_ARG!>"nonLiteralArgs" + "Swift"<!>,
+    <!NON_LITERAL_OBJC_NAME_ARG!>exact<!>
+)
+val nonLiteralArgs: Int = 0

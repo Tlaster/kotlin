@@ -1009,7 +1009,7 @@ private fun KtClassOrObject.getObjCName(): ObjCName {
         }
 
         fun ValueArgument.getBooleanValue(): Boolean =
-                (getArgumentExpression() as? KtConstantExpression)?.node?.text?.toBoolean() ?: false
+                (getArgumentExpression() as? KtConstantExpression)?.text?.toBooleanStrictOrNull() ?: false
 
         val argNames = setOf("name", "swiftName", "exact")
         val processedArgs = mutableSetOf<String>()

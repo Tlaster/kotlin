@@ -50,6 +50,8 @@ object ErrorsNative {
     val INAPPLICABLE_EXACT_OBJC_NAME = DiagnosticFactory0.create<KtElement>(Severity.ERROR)
     @JvmField
     val MISSING_EXACT_OBJC_NAME = DiagnosticFactory0.create<KtElement>(Severity.ERROR)
+    @JvmField
+    val NON_LITERAL_OBJC_NAME_ARG = DiagnosticFactory0.create<KtElement>(Severity.ERROR)
 
     init {
         Errors.Initializer.initializeFactoryNames(ErrorsNative::class.java)

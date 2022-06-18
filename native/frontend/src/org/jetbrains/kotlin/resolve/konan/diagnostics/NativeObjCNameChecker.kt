@@ -8,7 +8,10 @@ package org.jetbrains.kotlin.resolve.konan.diagnostics
 import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.descriptors.annotations.AnnotationDescriptor
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.psi.KtConstantExpression
 import org.jetbrains.kotlin.psi.KtDeclaration
+import org.jetbrains.kotlin.psi.KtStringTemplateExpression
+import org.jetbrains.kotlin.psi.KtValueArgument
 import org.jetbrains.kotlin.resolve.DescriptorToSourceUtils
 import org.jetbrains.kotlin.resolve.annotations.argumentValue
 import org.jetbrains.kotlin.resolve.checkers.DeclarationChecker
@@ -48,7 +51,16 @@ object NativeObjCNameChecker : DeclarationChecker {
         descriptor: DeclarationDescriptor,
         context: DeclarationCheckerContext
     ) {
-        val reportLocation = DescriptorToSourceUtils.getSourceFromAnnotation(objCName.annotation) ?: declaration
+        val annotationSource = DescriptorToSourceUtils.getSourceFromAnnotation(objCName.annotation)
+        annotationSource?.valueArguments?.forEach {
+            // We don't support constant references since that would require resolution in ObjCExportLazy
+            val expression = it.getArgumentExpression() ?: return@forEach
+            if (expression is KtConstantExpression || expression is KtStringTemplateExpression ||
+                (it is KtValueArgument && it.stringTemplateExpression != null)
+            ) return@forEach
+            context.trace.report(ErrorsNative.NON_LITERAL_OBJC_NAME_ARG.on(expression))
+        }
+        val reportLocation = annotationSource ?: declaration
         if (objCName.name == null && objCName.swiftName == null) {
             context.trace.report(ErrorsNative.INVALID_OBJC_NAME.on(reportLocation))
         }
