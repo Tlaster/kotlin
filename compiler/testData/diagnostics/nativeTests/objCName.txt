@@ -1,6 +1,7 @@
 package
 
 private const val exact: kotlin.Boolean = false
+@kotlin.native.ObjCName(exact = "not a boolean", name = "invalidArgsObjC", swiftName = false) public val invalidArgs: kotlin.Int = 0
 @kotlin.native.ObjCName(name = "validName", swiftName = "invalid.name") public val invalidCharactersObjCNameA: kotlin.Int = 0
 @kotlin.native.ObjCName(name = "invalid.name", swiftName = "validName") public val invalidCharactersObjCNameB: kotlin.Int = 0
 @kotlin.native.ObjCName(name = "validName1", swiftName = "1validName") public val invalidFirstCharacterObjCNameA: kotlin.Int = 0

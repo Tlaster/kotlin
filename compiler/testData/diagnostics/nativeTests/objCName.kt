@@ -174,3 +174,6 @@ private const val objcName = "nonLiteralArgsObjC"
     <!NON_LITERAL_OBJC_NAME_ARG!>exact<!>
 )
 val nonLiteralArgs: Int = 0
+
+@ObjCName("invalidArgsObjC", <!CONSTANT_EXPECTED_TYPE_MISMATCH!>false<!>, <!TYPE_MISMATCH!>"not a boolean"<!>)
+val invalidArgs: Int = 0
