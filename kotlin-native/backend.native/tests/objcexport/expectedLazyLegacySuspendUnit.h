@@ -1136,7 +1136,7 @@ __attribute__((swift_name("ObjCNameC1A")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (NSString *)foo __attribute__((swift_name("foo()")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameAKt")))
@@ -1145,7 +1145,7 @@ __attribute__((swift_name("ObjCNameAKt")))
 + (BOOL)supportsFeatures:(BOOL)features __attribute__((swift_name("supports(_:)")));
 + (NSString *)scanForPeripheralsWithServices:(int32_t)serviceUUIDs options:(NSString *)options __attribute__((swift_name("scanForPeripherals(withServices:options:)")));
 + (NSString *)registerForConnectionEventsWithOptions:(NSString *)options __attribute__((swift_name("registerForConnectionEvents(options:)")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameC1B")))
@@ -1153,7 +1153,7 @@ __attribute__((swift_name("ObjCNameC1B")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (NSString *)foo __attribute__((swift_name("foo()")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("MySwiftArray")))
@@ -1162,14 +1162,14 @@ __attribute__((swift_name("MySwiftArray")))
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (int32_t)indexOfObject:(int32_t)element __attribute__((swift_name("index(of:)")));
 @property (readonly) int32_t count __attribute__((swift_name("count")));
-@end;
+@end
 
 __attribute__((swift_name("ObjCNameI1")))
 @protocol KtObjCNameI1
 @required
 - (int32_t)someOtherFunctionReceiver:(int32_t)receiver otherParam:(int32_t)param __attribute__((swift_name("someOtherFunction(receiver:otherParam:)")));
 @property (readonly) int32_t someOtherValue __attribute__((swift_name("someOtherValue")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SwiftNameC2")))
@@ -1178,7 +1178,7 @@ __attribute__((swift_name("SwiftNameC2")))
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (int32_t)someOtherFunctionReceiver:(int32_t)receiver otherParam:(int32_t)param __attribute__((swift_name("someOtherFunction(receiver:otherParam:)")));
 @property int32_t someOtherValue __attribute__((swift_name("someOtherValue")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SwiftNameC2.SwiftNestedClass")))
@@ -1186,7 +1186,7 @@ __attribute__((swift_name("SwiftNameC2.SwiftNestedClass")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 @property int32_t nestedValue __attribute__((swift_name("nestedValue")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SwiftExactNestedClass")))
@@ -1194,14 +1194,14 @@ __attribute__((swift_name("SwiftExactNestedClass")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 @property int32_t nestedValue __attribute__((swift_name("nestedValue")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SwiftNameC3")))
 @interface ObjCNameC3 : KtBase
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("SwiftNameC3.SwiftNestedClass")))
@@ -1209,7 +1209,7 @@ __attribute__((swift_name("SwiftNameC3.SwiftNestedClass")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 @property int32_t nestedValue __attribute__((swift_name("nestedValue")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameC4")))
@@ -1217,7 +1217,7 @@ __attribute__((swift_name("ObjCNameC4")))
 - (instancetype)init __attribute__((swift_name("init()"))) __attribute__((objc_designated_initializer));
 + (instancetype)new __attribute__((availability(swift, unavailable, message="use object initializers instead")));
 - (int32_t)fooObjCReceiver:(int32_t)receiver objCParam:(int32_t)param __attribute__((swift_name("foo(objCReceiver:objCParam:)")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameSwiftObject")))
@@ -1226,7 +1226,7 @@ __attribute__((swift_name("ObjCNameSwiftObject")))
 + (instancetype)allocWithZone:(struct _NSZone *)zone __attribute__((unavailable));
 + (instancetype)objCNameObjCObject __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) KtObjCNameObjCObject *shared __attribute__((swift_name("shared")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameSwiftEnum")))
@@ -1238,7 +1238,7 @@ __attribute__((swift_name("ObjCNameSwiftEnum")))
 @property (class, readonly) KtObjCNameObjCEnum *objcTwo __attribute__((swift_name("companion")));
 @property (class, readonly) KtObjCNameObjCEnum *objcThree __attribute__((swift_name("swiftThree")));
 + (KtKotlinArray<KtObjCNameObjCEnum *> *)values __attribute__((swift_name("values()")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameSwiftEnum.Companion")))
@@ -1248,13 +1248,13 @@ __attribute__((swift_name("ObjCNameSwiftEnum.Companion")))
 + (instancetype)companion __attribute__((swift_name("init()")));
 @property (class, readonly, getter=shared) KtObjCNameObjCEnumCompanion *shared __attribute__((swift_name("shared")));
 - (int32_t)foo __attribute__((swift_name("foo()")));
-@end;
+@end
 
 __attribute__((objc_subclassing_restricted))
 __attribute__((swift_name("ObjCNameBKt")))
 @interface KtObjCNameBKt : KtBase
 + (int32_t)getSomeValueOf:(id<KtObjCNameI1>)receiver __attribute__((swift_name("getSomeValue(of:)")));
-@end;
+@end
 
 __attribute__((swift_name("OverrideKotlinMethods2")))
 @protocol KtOverrideKotlinMethods2
