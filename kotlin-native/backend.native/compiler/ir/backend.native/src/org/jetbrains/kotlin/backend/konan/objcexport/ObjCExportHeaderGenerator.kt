@@ -816,7 +816,7 @@ internal class ObjCExportTranslatorImpl(
         }
     }
 
-    private val mustBeDocumentedAnnotationsStopList = setOf(StandardNames.FqNames.deprecated)
+    private val mustBeDocumentedAnnotationsStopList = setOf(StandardNames.FqNames.deprecated, KonanFqNames.objCName)
     private fun mustBeDocumentedAnnotations(annotations: Annotations): List<String> {
         return annotations.mapNotNull { it ->
             it.annotationClass?.let { annotationClass ->
