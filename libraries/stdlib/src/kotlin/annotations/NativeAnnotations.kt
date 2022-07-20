@@ -5,6 +5,8 @@
 
 package kotlin.native
 
+import kotlin.experimental.ExperimentalObjCName
+
 /**
  * Makes top level function available from C/C++ code with the given name.
  *
@@ -46,16 +48,6 @@ public expect annotation class CName(val externName: String = "", val shortName:
 @Retention(AnnotationRetention.BINARY)
 @OptionalExpectation
 expect annotation class FreezingIsDeprecated
-
-/**
- * This annotation marks the experimental [ObjCName] annotation.
- */
-@RequiresOptIn
-@Target(AnnotationTarget.ANNOTATION_CLASS)
-@Retention(AnnotationRetention.BINARY)
-@MustBeDocumented
-@OptionalExpectation
-public expect annotation class ExperimentalObjCName()
 
 /**
  * Instructs the Kotlin compiler to use a custom Objective-C and/or Swift name for this class, property, parameter or function.

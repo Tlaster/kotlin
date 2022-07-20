@@ -5,6 +5,7 @@
 
 package kotlin.native
 
+import kotlin.experimental.ExperimentalObjCName
 import kotlin.reflect.KClass
 
 /**
@@ -83,15 +84,6 @@ public annotation class EagerInitialization
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.BINARY)
 public actual annotation class CName(actual val externName: String = "", actual val shortName: String = "")
-
-/**
- * This annotation marks the experimental [ObjCName] annotation.
- */
-@RequiresOptIn
-@Target(AnnotationTarget.ANNOTATION_CLASS)
-@Retention(AnnotationRetention.BINARY)
-@MustBeDocumented
-public actual annotation class ExperimentalObjCName
 
 /**
  * Instructs the Kotlin compiler to use a custom Objective-C and/or Swift name for this class, property, parameter or function.

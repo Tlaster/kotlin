@@ -7,6 +7,8 @@
 
 package objCNameB
 
+import kotlin.experimental.ExperimentalObjCName
+
 // https://youtrack.jetbrains.com/issue/KT-50767
 @ObjCName("ObjCNameC1B")
 class ObjCNameC1 {
