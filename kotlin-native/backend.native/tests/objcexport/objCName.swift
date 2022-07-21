@@ -48,7 +48,7 @@ private func testObjCNameExact() throws {
 }
 
 private func testObjCNameObject() throws {
-    try assertSame(actual: ObjCNameSwiftObject.shared, expected: ObjCNameSwiftObject())
+    try assertEquals(actual: ObjCNameSwiftObject.shared, expected: ObjCNameSwiftObject())
 }
 
 private func testObjCNameEnum() throws {
