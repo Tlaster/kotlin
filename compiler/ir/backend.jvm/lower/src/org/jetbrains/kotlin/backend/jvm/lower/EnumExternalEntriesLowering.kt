@@ -19,16 +19,10 @@ import org.jetbrains.kotlin.ir.declarations.IrClass
 import org.jetbrains.kotlin.ir.declarations.IrField
 import org.jetbrains.kotlin.ir.declarations.IrFile
 import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
-import org.jetbrains.kotlin.ir.expressions.IrExpression
-import org.jetbrains.kotlin.ir.expressions.IrFunctionAccessExpression
+import org.jetbrains.kotlin.ir.expressions.*
 import org.jetbrains.kotlin.ir.expressions.impl.IrGetFieldImpl
-import org.jetbrains.kotlin.ir.types.defaultType
-import org.jetbrains.kotlin.ir.types.getClass
-import org.jetbrains.kotlin.ir.types.typeWith
-import org.jetbrains.kotlin.ir.util.createImplicitParameterDeclarationWithWrappedDescriptor
-import org.jetbrains.kotlin.ir.util.defaultType
-import org.jetbrains.kotlin.ir.util.isEnumClass
-import org.jetbrains.kotlin.ir.util.isFromJava
+import org.jetbrains.kotlin.ir.types.*
+import org.jetbrains.kotlin.ir.util.*
 import org.jetbrains.kotlin.ir.visitors.transformChildrenVoid
 import org.jetbrains.kotlin.name.Name
 
@@ -78,17 +72,43 @@ class EnumExternalEntriesLowering(private val context: JvmBackendContext) : File
         }
     }
 
+    override fun visitGetValue(expression: IrGetValue): IrExpression {
+        return super.visitGetValue(expression)
+    }
+
+    override fun visitMemberAccess(expression: IrMemberAccessExpression<*>): IrExpression {
+        return super.visitMemberAccess(expression)
+    }
+
+    override fun visitDynamicMemberExpression(expression: IrDynamicMemberExpression): IrExpression {
+        return super.visitDynamicMemberExpression(expression)
+    }
+
+
     override fun visitFunctionAccess(expression: IrFunctionAccessExpression): IrExpression {
         val owner = expression.symbol.owner as? IrSimpleFunction
         val parentClass = owner?.parent as? IrClass ?: return expression
+        /*
+         * Candidates for lowering:
+         * * Java enums
+         * * Kotlin enums that have no 'entries' function (thus compiled with pre-1.8 LV/AV)
+         */
         val shouldBeLowered = parentClass.isEnumClass &&
                 owner.name == Name.special("<get-entries>") &&
-                (parentClass.isFromJava()) // TODO check metadata for prev versions
+                (parentClass.isFromJava() || !parentClass.hasEnumEntriesFunction())
+
         if (!shouldBeLowered) return expression
 
         val enumClass = parentClass.symbol.defaultType.getClass()!!
         val field = state!!.getEntriesFieldForEnum(enumClass)
         return IrGetFieldImpl(expression.startOffset, expression.endOffset, field.symbol, field.type)
+    }
+
+    private fun IrClass.hasEnumEntriesFunction() = functions.any {
+        it.name.toString() == "<get-entries>"
+                && it.dispatchReceiverParameter == null
+                && it.extensionReceiverParameter == null
+                && it.valueParameters.isEmpty()
     }
 
     override fun visitClassNew(declaration: IrClass): IrStatement {

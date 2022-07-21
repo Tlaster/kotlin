@@ -28,6 +28,7 @@ class StaticInitializersLowering(override val context: JvmBackendContext) : Init
             // so don't add any to <clinit>.
             (it is IrField && it.isStatic && it.constantValue() == null) || (it is IrAnonymousInitializer && it.isStatic)
         }.toMutableList()
+        // TODO
         if (staticInitializerStatements.isNotEmpty()) {
             staticInitializerStatements.sortBy {
                 when ((it as? IrSetField)?.symbol?.owner?.origin) {
