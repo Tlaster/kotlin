@@ -37,7 +37,9 @@ class BuildCacheIT : KGPBaseTest() {
     override val defaultBuildOptions: BuildOptions =
         super.defaultBuildOptions.copy(buildCacheEnabled = true)
 
-    private val localBuildCacheDir get() = workingDir.resolve("custom-jdk-build-cache")
+    private val TestProject.localBuildCacheDir get() = workingDir
+        .resolve("custom-jdk-build-cache")
+        .resolve(workingDir.relativize(projectPath))
 
     @DisplayName("kotlin.caching.enabled flag should enable caching for Kotlin tasks")
     @GradleTest
