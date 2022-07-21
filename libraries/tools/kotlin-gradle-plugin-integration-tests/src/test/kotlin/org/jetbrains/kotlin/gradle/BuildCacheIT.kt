@@ -80,7 +80,7 @@ class BuildCacheIT : KGPBaseTest() {
     )
     @GradleTest
     fun testCacheHitAfterCacheHit(gradleVersion: GradleVersion) {
-        project("simpleProject", gradleVersion) {
+        project("simpleProject", gradleVersion, buildOptions = defaultBuildOptions.copy(fileSystemWatchEnabled = true)) {
             enableLocalBuildCache(localBuildCacheDir)
 
             val fileHasher = DefaultFileHasher(DefaultStreamHasher())
@@ -89,6 +89,11 @@ class BuildCacheIT : KGPBaseTest() {
             val watchfsThread = FileWatcher(taskOutput)
 
             try {
+                gradleProperties.appendText(
+                    """
+                    org.gradle.vfs.verbose=true
+                    """.trimIndent()
+                )
                 build("assemble", forceOutput = true) {
                     // Should store the output into the cache:
                     assertTasksPackedToCache(":compileKotlin")
