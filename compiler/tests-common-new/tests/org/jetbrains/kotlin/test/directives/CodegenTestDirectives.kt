@@ -11,7 +11,11 @@ import org.jetbrains.kotlin.test.backend.handlers.*
 import org.jetbrains.kotlin.test.backend.ir.JvmIrBackendFacade
 import org.jetbrains.kotlin.test.directives.model.DirectiveApplicability.File
 import org.jetbrains.kotlin.test.directives.model.DirectiveApplicability.Global
+import org.jetbrains.kotlin.test.directives.model.RegisteredDirectives
 import org.jetbrains.kotlin.test.directives.model.SimpleDirectivesContainer
+import org.jetbrains.kotlin.test.directives.model.ValueDirective
+import org.jetbrains.kotlin.test.model.FrontendKind
+import org.jetbrains.kotlin.test.model.FrontendKinds
 
 object CodegenTestDirectives : SimpleDirectivesContainer() {
     val IGNORE_BACKEND by enumDirective<TargetBackend>(
@@ -19,8 +23,13 @@ object CodegenTestDirectives : SimpleDirectivesContainer() {
         applicability = Global
     )
 
-    val IGNORE_BACKEND_FIR by enumDirective<TargetBackend>(
-        description = "Ignore specific backend if test uses FIR",
+    val IGNORE_BACKEND_K1 by enumDirective<TargetBackend>(
+        description = "Ignore specific backend if test uses K1 frontend",
+        applicability = Global
+    )
+
+    val IGNORE_BACKEND_K2 by enumDirective<TargetBackend>(
+        description = "Ignore specific backend if test uses K2 frontend",
         applicability = Global
     )
 
@@ -29,8 +38,8 @@ object CodegenTestDirectives : SimpleDirectivesContainer() {
         applicability = Global
     )
 
-    val IGNORE_BACKEND_FIR_MULTI_MODULE by enumDirective<TargetBackend>(
-        description = "Ignore failures of multimodule test on target backend if test uses FIR",
+    val IGNORE_BACKEND_K2_MULTI_MODULE by enumDirective<TargetBackend>(
+        description = "Ignore failures of multimodule test on target backend if test uses K2 frontend",
         applicability = Global
     )
 
@@ -177,3 +186,24 @@ object CodegenTestDirectives : SimpleDirectivesContainer() {
         """.trimIndent()
     )
 }
+
+fun actualIgnoreDirective(
+    frontendKind: FrontendKind<*>,
+    directives: RegisteredDirectives,
+    customIgnoreDirective: ValueDirective<TargetBackend>? = null
+): ValueDirective<TargetBackend>? =
+    when (frontendKind) {
+        FrontendKinds.ClassicFrontend -> CodegenTestDirectives.IGNORE_BACKEND_K1
+        FrontendKinds.FIR -> CodegenTestDirectives.IGNORE_BACKEND_K2
+        else -> null
+    }?.let {
+        when {
+            customIgnoreDirective != null -> customIgnoreDirective
+            !directives.contains(it) -> CodegenTestDirectives.IGNORE_BACKEND
+            directives.contains(CodegenTestDirectives.IGNORE_BACKEND) ->
+                throw AssertionError("Both, IGNORE_BACKEND and ${it.name} present in the test data")
+
+            else -> it
+        }
+    }
+

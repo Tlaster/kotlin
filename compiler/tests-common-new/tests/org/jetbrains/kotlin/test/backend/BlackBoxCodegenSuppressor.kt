@@ -9,12 +9,10 @@ import org.jetbrains.kotlin.test.TargetBackend
 import org.jetbrains.kotlin.test.WrappedException
 import org.jetbrains.kotlin.test.bind
 import org.jetbrains.kotlin.test.directives.CodegenTestDirectives
-import org.jetbrains.kotlin.test.directives.CodegenTestDirectives.IGNORE_BACKEND
-import org.jetbrains.kotlin.test.directives.CodegenTestDirectives.IGNORE_BACKEND_FIR
+import org.jetbrains.kotlin.test.directives.actualIgnoreDirective
 import org.jetbrains.kotlin.test.directives.model.DirectivesContainer
 import org.jetbrains.kotlin.test.directives.model.ValueDirective
 import org.jetbrains.kotlin.test.model.AfterAnalysisChecker
-import org.jetbrains.kotlin.test.model.FrontendKinds
 import org.jetbrains.kotlin.test.model.TestModule
 import org.jetbrains.kotlin.test.services.*
 
@@ -58,13 +56,8 @@ class BlackBoxCodegenSuppressor(
     }
 
     class SuppressionChecker(val testServices: TestServices, val customIgnoreDirective: ValueDirective<TargetBackend>?) : TestService {
-        fun extractIgnoreDirective(module: TestModule): ValueDirective<TargetBackend>? {
-            return when (module.frontendKind) {
-                FrontendKinds.ClassicFrontend -> customIgnoreDirective ?: IGNORE_BACKEND
-                FrontendKinds.FIR -> customIgnoreDirective ?: IGNORE_BACKEND_FIR
-                else -> null
-            }
-        }
+        fun extractIgnoreDirective(module: TestModule): ValueDirective<TargetBackend>? =
+            actualIgnoreDirective(module.frontendKind, module.directives, customIgnoreDirective)
 
         fun failuresInModuleAreIgnored(module: TestModule): Boolean {
             val ignoreDirective = extractIgnoreDirective(module) ?: return false

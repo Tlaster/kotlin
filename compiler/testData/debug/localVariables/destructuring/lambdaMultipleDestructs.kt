@@ -1,5 +1,5 @@
 // IGNORE_BACKEND: JVM_IR
-// IGNORE_BACKEND_FIR: JVM_IR
+// IGNORE_BACKEND_K2: JVM_IR
 // FILE: test.kt
 data class A(val x: String, val y: Int)
 
